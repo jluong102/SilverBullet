@@ -18,16 +18,35 @@ import (
 	"os"
 )
 
+// Set at compile time
+var VERSION string = "N/A"
+var BUILD_DATE string = "N/A"
+
 // For holding args from cmdline
 type cmdline struct {
 	config string
+	version bool
 }
 
 // Load in args passed from cmdline
 func loadArgs(cmdArgs *cmdline) {
 	flag.StringVar(&cmdArgs.config, "config", "./config.json", "Setup config to use")
+	flag.BoolVar(&cmdArgs.version, "version", false, "Print version")
 
 	flag.Parse()
+
+	if cmdArgs.version {
+		printVersion()
+	}
+}
+
+// Print version an exit 
+func printVersion() {
+	fmt.Printf("~ Silver Bullet ~\n")
+	fmt.Printf("Version: %s\n", VERSION)
+	fmt.Printf("Date: %s\n", BUILD_DATE)
+
+	os.Exit(NO_ERROR)
 }
 
 // Make sure valid cmdline args are passed
