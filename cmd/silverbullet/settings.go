@@ -19,10 +19,15 @@ func (this Settings) VerifySettings() {
 
 // Create bullet objects from config file and return them
 func (this Settings) GetBullets() []Bullet {
+	fmt.Printf("Loading bullets\n")
+
 	var bullets []Bullet
 
 	for _, i := range this.Bullets {
 		b := LoadBullet(i)
+		b.VerifyBullet()
+
+		bullets = append(bullets, *b)
 	}
 
 	return bullets

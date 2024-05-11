@@ -14,6 +14,7 @@ type Monitor struct {
 	Interval uint `json:"interval"`
 }
 
+// Bullet stuff
 func (this Bullet) VerifyBullet() {
 	this.verifyMonitor()
 }
@@ -22,6 +23,7 @@ func (this Bullet) verifyMonitor() {
 
 }
 
+// Non object stuff
 func LoadBullet(filename string) *Bullet {
 	fmt.Printf("Loading bullet from %s\n", filename)
 

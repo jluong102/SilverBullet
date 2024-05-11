@@ -63,4 +63,6 @@ func main() {
 
 	settings := loadSettings(cmdArgs.config)
 	settings.VerifySettings()
+
+	_ = settings.GetBullets()
 }
