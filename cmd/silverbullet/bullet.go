@@ -20,7 +20,7 @@ func (this Bullet) VerifyBullet() {
 }
 
 func (this Bullet) verifyMonitor() {
-
+	
 }
 
 // Non object stuff
