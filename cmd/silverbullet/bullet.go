@@ -1,9 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
-	"encoding/json"
 )
 
 type Bullet struct {
@@ -20,7 +20,7 @@ func (this Bullet) VerifyBullet() {
 }
 
 func (this Bullet) verifyMonitor() {
-	
+
 }
 
 // Non object stuff

@@ -1,5 +1,6 @@
 {
 	"bullets": [
 		"examples/bullet.json"
-	]
+	],
+	"log": "/var/silverbullet/log"
 }

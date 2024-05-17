@@ -1,10 +1,3 @@
-/////////////////////////////////////////////////////////
-//	____  _ _                ____        _ _      _    //
-// / ___|(_) |_   _____ _ __| __ ) _   _| | | ___| |_  //
-// \___ \| | \ \ / / _ \ '__|  _ \| | | | | |/ _ \ __| //
-//	___) | | |\ V /  __/ |  | |_) | |_| | | |  __/ |_  //
-// |____/|_|_| \_/ \___|_|  |____/ \__,_|_|_|\___|\__| //
-/////////////////////////////////////////////////////////
 package main
 
 import (
@@ -20,7 +13,7 @@ var BUILD_DATE string = "N/A"
 
 // For holding args from cmdline
 type cmdline struct {
-	config string
+	config  string
 	version bool
 }
 
@@ -36,7 +29,7 @@ func loadArgs(cmdArgs *cmdline) {
 	}
 }
 
-// Print version an exit 
+// Print version an exit
 func printVersion() {
 	fmt.Printf("~ Silver Bullet ~\n")
 	fmt.Printf("Version: %s\n", VERSION)
