@@ -10,17 +10,9 @@ type Bullet struct {
 	Monitor *Monitor `json:"monitor"`
 }
 
-type Monitor struct {
-	Interval uint `json:"interval"`
-}
-
 // Bullet stuff
 func (this Bullet) VerifyBullet() {
-	this.verifyMonitor()
-}
-
-func (this Bullet) verifyMonitor() {
-
+	this.Monitor.VerifyMonitor()
 }
 
 // Non object stuff

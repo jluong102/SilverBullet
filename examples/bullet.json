@@ -1,5 +1,6 @@
 {
 	"monitor": {
-		"interval": 240
+		"interval": 240,
+		"script": "examples/check.sh"
 	}
 }
