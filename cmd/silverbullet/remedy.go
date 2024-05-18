@@ -6,8 +6,8 @@ import (
 
 type Remedy struct {
 	Script   string `json:"script"`
-	Try      int    `json:"try"`
-	Interval int    `json:"interval"`
+	Try      uint   `json:"try"`
+	Interval uint   `json:"interval"`
 }
 
 func (this Remedy) VerifyRemedy() {
