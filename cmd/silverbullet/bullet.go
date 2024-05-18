@@ -7,7 +7,8 @@ import (
 )
 
 type Bullet struct {
-	Monitor *Monitor `json:"monitor"`
+	Monitor *Monitor           `json:"monitor"`
+	Remedy  map[string]*Remedy `json:"remedy"`
 }
 
 // Bullet stuff

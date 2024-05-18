@@ -6,28 +6,21 @@ import (
 )
 
 type Monitor struct {
-	Interval uint   `json:"interval"`
-	Script   string `json:"script"`
-	Good     []int  `json:"good"`
+	Interval uint             `json:"interval"`
+	Script   string           `json:"script"`
+	Good     []int            `json:"good"`
+	Bad      map[string][]int `json:"bad"`
 }
 
 func (this Monitor) VerifyMonitor() {
 	this.verifyScript()
 	this.verifyGood()
+	this.verifyBad()
 }
 
 func (this Monitor) verifyScript() {
 	fmt.Printf("Verifying monitor script %s\n", this.Script)
-
-	info, err := os.Stat(this.Script)
-
-	if err != nil {
-		fmt.Printf("Unable to find file %s: %s\n", this.Script, err)
-		os.Exit(SCRIPT_FILE_ERROR)
-	} else if info.IsDir() {
-		fmt.Printf("Script %s cannot be a directory\n", this.Script)
-		os.Exit(SCRIPT_FILE_ERROR)
-	}
+	VerifyScript(this.Script)
 }
 
 // Make sure that at least one good exit code is provided
@@ -36,4 +29,8 @@ func (this Monitor) verifyGood() {
 		fmt.Printf("Must provide \"good\" exit codes in \"monitor\"\n")
 		os.Exit(MISSING_SETTING_ERROR)
 	}
+}
+
+func (this Monitor) verifyBad() {
+
 }

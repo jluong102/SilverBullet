@@ -4,6 +4,18 @@
 		"script": "examples/check.sh",
 		"good": [
 			0
-		]
+		],
+		"bad": {
+			"example_fix": [
+				1
+			] 
+		}
+	},
+	"remedy": {
+		"example_fix": {
+			"script": "examples/resolve.sh",
+			"try": 3,
+			"interval": 240
+		}
 	}
 }
