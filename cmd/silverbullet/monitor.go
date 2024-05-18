@@ -8,7 +8,7 @@ import (
 type Monitor struct {
 	Interval uint   `json:"interval"`
 	Script   string `json:"script"`
-	Good []int `json:"good"`
+	Good     []int  `json:"good"`
 }
 
 func (this Monitor) VerifyMonitor() {
