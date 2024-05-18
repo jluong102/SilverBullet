@@ -14,11 +14,32 @@ type Bullet struct {
 // Bullet stuff
 func (this Bullet) VerifyBullet() {
 	this.Monitor.VerifyMonitor()
+	this.VerifyRemedy()
+}
+
+/*
+ * We want to make sure that each remedy
+ * that is declared inside monitoring config
+ * is valid. This needs to be checked at the
+ * "bullet" level so we can read from both
+ * "monitor" and "remedy". This should be called
+ * after the verifaction is done on "monitor".
+ */
+func (this Bullet) VerifyRemedy() {
+	for i, _ := range this.Monitor.Bad {
+		if _, found := this.Remedy[i]; found {
+			fmt.Printf("Verifying remedy %s\n", i)
+			this.Remedy[i].VerifyRemedy()
+		} else {
+			fmt.Printf("%s not defined in \"remedy\"\n", i)
+			os.Exit(MISSING_REMEDY_ERROR)
+		}
+	}
 }
 
 // Non object stuff
 func LoadBullet(filename string) *Bullet {
-	fmt.Printf("Loading bullet from %s\n", filename)
+	fmt.Printf("Loading bullet %s\n", filename)
 
 	bullet := new(Bullet)
 	content, err := os.ReadFile(filename)

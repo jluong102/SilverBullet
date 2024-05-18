@@ -15,6 +15,6 @@ func (this Remedy) VerifyRemedy() {
 }
 
 func (this Remedy) verifyScript() {
-	fmt.Printf("Verifying remedy script %s", this.Script)
+	fmt.Printf("Verifying remedy script %s\n", this.Script)
 	VerifyScript(this.Script)
 }
