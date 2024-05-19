@@ -9,6 +9,7 @@ import (
 type Settings struct {
 	Bullets []string `json:"bullets"`
 	Log     string   `json:"log"`
+	OOR string `json:"oor"`
 }
 
 // Make sure all needed settings are good
@@ -17,6 +18,7 @@ func (this Settings) VerifySettings() {
 
 	this.verifyBullets()
 	this.verifyLog()
+	this.verifyOOR()
 }
 
 // Create bullet objects from config file and return them
@@ -49,24 +51,16 @@ func (this Settings) verifyLog() {
 		fmt.Printf("No \"log\" set in config\n")
 	}
 
-	// Check if log exists
-	info, err := os.Stat(this.Log)
+	// Check if log exists or create it 
+	VerifyDirPath(this.Log)
+}
 
-	if err == nil {
-		// Make sure path is found
-		if info.IsDir() {
-			fmt.Printf("Verifyed log path %s\n", this.Log)
-		} else {
-			fmt.Printf("%s is not a directory\n", this.Log)
-			os.Exit(INVALID_PATH_ERROR)
-		}
-	} else {
-		// Directory not found, make one
-		fmt.Printf("Creating directory %s\n", this.Log)
-
-		if err = os.MkdirAll(this.Log, 0744); err != nil {
-			fmt.Printf("Failed to create directory %s: %s\n", this.Log, err)
-			os.Exit(FILE_CREATE_ERROR)
-		}
+func (this Settings) verifyOOR() {
+	if this.OOR == "" { // Default to /var/silverbullet/oor 
+		this.OOR = "/var/silverbullet/oor"
+		fmt.Printf("No \"oor\" path set. Using default %s\n", this.OOR)
 	}
+
+	// Check if path exists or create it 
+	VerifyDirPath(this.OOR)
 }
