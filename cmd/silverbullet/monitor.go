@@ -15,6 +15,7 @@ type Monitor struct {
 func (this Monitor) VerifyMonitor() {
 	this.verifyScript()
 	this.verifyGood()
+	this.verifyBad()
 }
 
 func (this Monitor) verifyScript() {
@@ -27,5 +28,14 @@ func (this Monitor) verifyGood() {
 	if len(this.Good) < 1 {
 		fmt.Printf("Must provide \"good\" exit codes in \"monitor\"\n")
 		os.Exit(MISSING_SETTING_ERROR)
+	}
+}
+
+func (this Monitor) verifyBad() {
+	for i, j := range this.Bad {
+		if len(j) < 1 {
+			fmt.Printf("Must provide at least one exit code for %s\n", i)
+			os.Exit(MISSING_SETTING_ERROR)
+		}
 	}
 }
