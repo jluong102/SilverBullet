@@ -11,7 +11,6 @@ type Remedy struct {
 }
 
 func (this Remedy) VerifyRemedy() {
-	fmt.Printf("Verifying remedy\n")
 	this.verifyScript()
 }
 
