@@ -39,7 +39,7 @@ func (this Bullet) VerifyRemedy() {
 
 // Non object stuff
 func LoadBullet(filename string) *Bullet {
-	fmt.Printf("Loading bullet %s\n", filename)
+	fmt.Printf("\tLoading bullet %s\n", filename)
 
 	bullet := new(Bullet)
 	content, err := os.ReadFile(filename)

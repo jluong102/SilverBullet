@@ -11,10 +11,11 @@ type Remedy struct {
 }
 
 func (this Remedy) VerifyRemedy() {
+	fmt.Printf("Verifying remedy\n")
 	this.verifyScript()
 }
 
 func (this Remedy) verifyScript() {
-	fmt.Printf("Verifying remedy script %s\n", this.Script)
+	fmt.Printf("\tVerifying remedy script %s\n", this.Script)
 	VerifyScript(this.Script)
 }

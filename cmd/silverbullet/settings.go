@@ -40,7 +40,7 @@ func (this Settings) GetBullets() []Bullet {
 // Make sure at least one bullet is provided
 func (this Settings) verifyBullets() {
 	if len(this.Bullets) < 1 {
-		fmt.Printf("Must provide \"bullets\" in config\n")
+		fmt.Printf("\tMust provide \"bullets\" in config\n")
 		os.Exit(MISSING_SETTING_ERROR)
 	}
 }
@@ -48,7 +48,7 @@ func (this Settings) verifyBullets() {
 func (this Settings) verifyLog() {
 	// Log is optional
 	if this.Log == "" {
-		fmt.Printf("No \"log\" set in config\n")
+		fmt.Printf("\tNo \"log\" set in config\n")
 	}
 
 	// Check if log exists or create it
@@ -58,7 +58,7 @@ func (this Settings) verifyLog() {
 func (this Settings) verifyOOR() {
 	if this.OOR == "" { // Default to /var/silverbullet/oor
 		this.OOR = "/var/silverbullet/oor"
-		fmt.Printf("No \"oor\" path set. Using default %s\n", this.OOR)
+		fmt.Printf("\tNo \"oor\" path set. Using default %s\n", this.OOR)
 	}
 
 	// Check if path exists or create it
