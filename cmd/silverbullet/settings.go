@@ -9,7 +9,7 @@ import (
 type Settings struct {
 	Bullets []string `json:"bullets"`
 	Log     string   `json:"log"`
-	OOR string `json:"oor"`
+	OOR     string   `json:"oor"`
 }
 
 // Make sure all needed settings are good
@@ -51,16 +51,16 @@ func (this Settings) verifyLog() {
 		fmt.Printf("No \"log\" set in config\n")
 	}
 
-	// Check if log exists or create it 
+	// Check if log exists or create it
 	VerifyDirPath(this.Log)
 }
 
 func (this Settings) verifyOOR() {
-	if this.OOR == "" { // Default to /var/silverbullet/oor 
+	if this.OOR == "" { // Default to /var/silverbullet/oor
 		this.OOR = "/var/silverbullet/oor"
 		fmt.Printf("No \"oor\" path set. Using default %s\n", this.OOR)
 	}
 
-	// Check if path exists or create it 
+	// Check if path exists or create it
 	VerifyDirPath(this.OOR)
 }
