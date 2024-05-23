@@ -19,6 +19,10 @@ func (this Monitor) VerifyMonitor() {
 	this.verifyBad()
 }
 
+func (this Monitor) StartMonitor() {
+
+}
+
 func (this Monitor) verifyScript() {
 	fmt.Printf("\tVerifying monitor script %s\n", this.Script)
 	VerifyScript(this.Script)

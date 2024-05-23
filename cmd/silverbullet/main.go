@@ -73,7 +73,7 @@ func initScans(bullets []Bullet) {
 		go i.StartScan(&wg)
 	}
 
-	wg.Done()
+	wg.Wait()
 }
 
 func main() {

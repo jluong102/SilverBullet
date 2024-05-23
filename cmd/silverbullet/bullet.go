@@ -39,7 +39,11 @@ func (this Bullet) VerifyRemedy() {
 }
 
 func (this Bullet) StartScan(wg *sync.WaitGroup) {
-	defer wg.Done()
+	defer wg.Done() // This shouldn't be needed 
+
+	for {
+		this.Monitor.StartMonitor()
+	}
 }
 
 // Non object stuff
