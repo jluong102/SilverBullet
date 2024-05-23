@@ -3,5 +3,5 @@
 		"examples/bullet.json"
 	],
 	"log": "/var/silverbullet/log",
-	"oor": "/var/silverbullet/oor"
+	"oor": "/etc/silverbullet/oor"
 }

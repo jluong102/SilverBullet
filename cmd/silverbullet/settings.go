@@ -56,8 +56,8 @@ func (this Settings) verifyLog() {
 }
 
 func (this Settings) verifyOOR() {
-	if this.OOR == "" { // Default to /var/silverbullet/oor
-		this.OOR = "/var/silverbullet/oor"
+	if this.OOR == "" { // Default to /etc/silverbullet/oor
+		this.OOR = "/etc/silverbullet/oor"
 		fmt.Printf("\tNo \"oor\" path set. Using default %s\n", this.OOR)
 	}
 
