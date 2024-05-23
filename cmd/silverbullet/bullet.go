@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sync"
 )
 
 type Bullet struct {
@@ -35,6 +36,10 @@ func (this Bullet) VerifyRemedy() {
 			os.Exit(MISSING_REMEDY_ERROR)
 		}
 	}
+}
+
+func (this Bullet) StartScan(wg *sync.WaitGroup) {
+	defer wg.Done()
 }
 
 // Non object stuff

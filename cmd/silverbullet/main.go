@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sync"
 )
 
 // Set at compile time
@@ -63,6 +64,18 @@ func loadSettings(configFile string) *Settings {
 	return settings
 }
 
+func initScans(bullets []Bullet) {
+	fmt.Printf("Starting ups scans\n")
+	var wg sync.WaitGroup
+
+	for _, i := range bullets {
+		wg.Add(1)
+		go i.StartScan(&wg)
+	}
+
+	wg.Done()
+}
+
 func main() {
 	cmdArgs := new(cmdline)
 
@@ -72,5 +85,6 @@ func main() {
 	settings := loadSettings(cmdArgs.config)
 	settings.VerifySettings()
 
-	_ = settings.GetBullets()
+	bullets := settings.GetBullets()
+	initScans(bullets)
 }
