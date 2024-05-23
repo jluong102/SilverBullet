@@ -19,7 +19,7 @@ type cmdline struct {
 
 // Load in args passed from cmdline
 func loadArgs(cmdArgs *cmdline) {
-	flag.StringVar(&cmdArgs.config, "c", "./config.json", "Setup config to use")
+	flag.StringVar(&cmdArgs.config, "c", "/etc/silverbullet/config.json", "Setup config to use")
 	flag.BoolVar(&cmdArgs.version, "version", false, "Print version")
 
 	flag.Parse()
