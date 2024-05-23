@@ -20,7 +20,7 @@ func (this Monitor) VerifyMonitor() {
 }
 
 func (this Monitor) StartMonitor() {
-
+	RunScript(this.Script)
 }
 
 func (this Monitor) verifyScript() {
