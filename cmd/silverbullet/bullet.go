@@ -42,7 +42,12 @@ func (this Bullet) StartScan(wg *sync.WaitGroup) {
 	defer wg.Done() // This shouldn't be needed
 
 	for {
-		_ = this.Monitor.RunMonitor()
+		remedy := this.Monitor.RunMonitor()
+
+		// Run remedy if defined 
+		if remedy != "" {
+			this.Remedy[remedy].RunRemedy()
+		}
 	}
 }
 
