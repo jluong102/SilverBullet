@@ -64,13 +64,13 @@ func loadSettings(configFile string) *Settings {
 	return settings
 }
 
-func initScans(bullets []Bullet) {
+func initScans(bullets []Bullet, settings *Settings) {
 	fmt.Printf("Starting ups scans\n")
 	var wg sync.WaitGroup
 
 	for _, i := range bullets {
 		wg.Add(1)
-		go i.StartScan(&wg)
+		go i.StartScan(settings, &wg)
 	}
 
 	wg.Wait()
@@ -86,5 +86,5 @@ func main() {
 	settings.VerifySettings()
 
 	bullets := settings.GetBullets()
-	initScans(bullets)
+	initScans(bullets, settings)
 }

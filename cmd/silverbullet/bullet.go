@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -40,12 +41,14 @@ func (this Bullet) VerifyRemedy() {
 	}
 }
 
-func (this Bullet) StartScan(wg *sync.WaitGroup) {
-	fmt.Printf("Starting bullet %s", this.Name)
+func (this Bullet) StartScan(settings *Settings, wg *sync.WaitGroup) {
+	fmt.Printf("Starting bullet %s\n", this.Name)
 	defer wg.Done() // This shouldn't be needed
 
 	for {
-		if this.isOOR() {
+		if this.isOOR(settings.OOR) {
+			fmt.Printf("%s is currently marked OOR\n", this.Name)
+
 			time.Sleep(time.Minute)
 			continue
 		}
@@ -59,7 +62,20 @@ func (this Bullet) StartScan(wg *sync.WaitGroup) {
 	}
 }
 
-func (this Bullet) isOOR() bool {
+func (this Bullet) isOOR(dirPath string) bool {
+	content, err := os.ReadDir(dirPath)
+
+	if err != nil {
+		fmt.Printf("Failed to read from directory: %s\n", err)
+		os.Exit(INVALID_PATH_ERROR)
+	}
+
+	for _, info := range content {
+		if info.Name() == this.Name {
+			return true
+		}
+	}
+
 	return false
 }
 
@@ -80,7 +96,10 @@ func LoadBullet(filename string) *Bullet {
 		os.Exit(YAML_PARSE_ERROR)
 	}
 
-	bullet.Name = filename
+	// Set the name of the bullet to the filename with no extension
+	tmp := strings.Split(filename, "/")
+	bullet.Name = tmp[len(tmp)-1]
+	bullet.Name = bullet.Name[:len(bullet.Name)-5]
 
 	return bullet
 }
