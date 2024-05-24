@@ -27,7 +27,7 @@ func (this Monitor) RunMonitor() string {
 		return this.findRemedy(exitcode)
 	}
 
-	time.Sleep(time.Second * time.Duration(this.Interval))	
+	time.Sleep(time.Second * time.Duration(this.Interval))
 	return this.RunMonitor()
 }
 
@@ -59,7 +59,7 @@ func (this Monitor) isGoodCode(exitcode int) bool {
 		if i == exitcode {
 			return true
 		}
-	}	
+	}
 
 	return false
 }

@@ -1,15 +1,15 @@
 package main
 
 import (
-	"os/exec"
 	"fmt"
+	"os/exec"
 	"strings"
 )
 
 /*
  * This will run the provided "script"
  * and return the exitcode on success.
- * Use this to determine if if we need 
+ * Use this to determine if if we need
  * to run a remedy.
  */
 func RunScript(script string) int {
@@ -22,7 +22,7 @@ func RunScript(script string) int {
 
 	if err := cmd.Wait(); err != nil {
 		if exitcode, ok := err.(*exec.ExitError); ok {
-			fmt.Printf("Exitcode: %d\n", exitcode.ExitCode())
+			// fmt.Printf("Exitcode: %d\n", exitcode.ExitCode())
 			return exitcode.ExitCode()
 		} else {
 			fmt.Printf("Unable to read exitcode: %s\n", err)

@@ -39,10 +39,10 @@ func (this Bullet) VerifyRemedy() {
 }
 
 func (this Bullet) StartScan(wg *sync.WaitGroup) {
-	defer wg.Done() // This shouldn't be needed 
+	defer wg.Done() // This shouldn't be needed
 
 	for {
-		this.Monitor.RunMonitor()
+		_ = this.Monitor.RunMonitor()
 	}
 }
 
