@@ -1,0 +1,5 @@
+---
+bullets:
+  - examples/bullet.yaml  
+log: /var/silverbullet/log 
+oor: /etc/silverbullet/oor
