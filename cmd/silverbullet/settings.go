@@ -7,9 +7,9 @@ import (
 
 // Settings loaded in from config file
 type Settings struct {
-	Bullets []string `json:"bullets"`
-	Log     string   `json:"log"`
-	OOR     string   `json:"oor"`
+	Bullets []string `yaml:"bullets"`
+	Log     string   `yaml:"log"`
+	OOR     string   `yaml:"oor,omitempty"`
 }
 
 // Make sure all needed settings are good

@@ -1,15 +1,15 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"sync"
+	"gopkg.in/yaml.v3"
 )
 
 type Bullet struct {
-	Monitor *Monitor           `json:"monitor"`
-	Remedy  map[string]*Remedy `json:"remedy"`
+	Monitor *Monitor           `yaml:"monitor"`
+	Remedy  map[string]*Remedy `yaml:"remedy"`
 }
 
 // Bullet stuff
@@ -58,9 +58,9 @@ func LoadBullet(filename string) *Bullet {
 		os.Exit(FILE_READ_ERROR)
 	}
 
-	if err = json.Unmarshal(content, bullet); err != nil {
+	if err = yaml.Unmarshal(content, bullet); err != nil {
 		fmt.Printf("Trouble parsing: %s\n", err)
-		os.Exit(JSON_PARSE_ERROR)
+		os.Exit(YAML_PARSE_ERROR)
 	}
 
 	return bullet

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
+	"gopkg.in/yaml.v3"
 	"os"
 	"sync"
 )
@@ -20,7 +20,7 @@ type cmdline struct {
 
 // Load in args passed from cmdline
 func loadArgs(cmdArgs *cmdline) {
-	flag.StringVar(&cmdArgs.config, "c", "/etc/silverbullet/config.json", "Setup config to use")
+	flag.StringVar(&cmdArgs.config, "c", "/etc/silverbullet/config.yaml", "Setup config to use")
 	flag.BoolVar(&cmdArgs.version, "version", false, "Print version")
 
 	flag.Parse()
@@ -56,9 +56,9 @@ func loadSettings(configFile string) *Settings {
 		os.Exit(FILE_READ_ERROR)
 	}
 
-	if err = json.Unmarshal(content, settings); err != nil {
+	if err = yaml.Unmarshal(content, settings); err != nil {
 		fmt.Printf("Trouble parsing: %s\n", err)
-		os.Exit(JSON_PARSE_ERROR)
+		os.Exit(YAML_PARSE_ERROR)
 	}
 
 	return settings

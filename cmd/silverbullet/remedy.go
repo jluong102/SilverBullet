@@ -5,9 +5,9 @@ import (
 )
 
 type Remedy struct {
-	Script   string `json:"script"`
-	Try      uint   `json:"try"`
-	Interval uint   `json:"interval"`
+	Script   string `yaml:"script"`
+	Try      uint   `yaml:"try"`
+	Interval uint   `yaml:"interval"`
 }
 
 func (this Remedy) VerifyRemedy() {
