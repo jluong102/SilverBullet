@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 type Monitor struct {
@@ -19,8 +20,15 @@ func (this Monitor) VerifyMonitor() {
 	this.verifyBad()
 }
 
-func (this Monitor) StartMonitor() {
-	RunScript(this.Script)
+func (this Monitor) RunMonitor() string {
+	exitcode := RunScript(this.Script)
+
+	if !this.isGoodCode(exitcode) {
+		return this.findRemedy(exitcode)
+	}
+
+	time.Sleep(time.Second * time.Duration(this.Interval))	
+	return this.RunMonitor()
 }
 
 func (this Monitor) verifyScript() {
@@ -43,4 +51,28 @@ func (this Monitor) verifyBad() {
 			os.Exit(MISSING_SETTING_ERROR)
 		}
 	}
+}
+
+// Check if exitcode is good
+func (this Monitor) isGoodCode(exitcode int) bool {
+	for _, i := range this.Good {
+		if i == exitcode {
+			return true
+		}
+	}	
+
+	return false
+}
+
+// Return the name of the remedy matchin the exitcode
+func (this Monitor) findRemedy(exitcode int) string {
+	for remedy, codes := range this.Bad {
+		for _, i := range codes {
+			if i == exitcode {
+				return remedy
+			}
+		}
+	}
+
+	return "" // None found
 }

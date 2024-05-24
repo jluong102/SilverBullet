@@ -42,7 +42,7 @@ func (this Bullet) StartScan(wg *sync.WaitGroup) {
 	defer wg.Done() // This shouldn't be needed 
 
 	for {
-		this.Monitor.StartMonitor()
+		this.Monitor.RunMonitor()
 	}
 }
 
