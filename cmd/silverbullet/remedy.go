@@ -15,7 +15,7 @@ func (this Remedy) RunRemedy() {
 	RunScript(this.Script)
 
 	// Wait before continuing
-	time.Sleep(time.Second * time.Duration(this.Interval)) 
+	time.Sleep(time.Second * time.Duration(this.Interval))
 }
 
 func (this Remedy) VerifyRemedy() {

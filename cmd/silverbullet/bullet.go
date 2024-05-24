@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+	"gopkg.in/yaml.v3"
 	"os"
 	"sync"
-	"gopkg.in/yaml.v3"
+	"time"
 )
 
 type Bullet struct {
+	Name    string
 	Monitor *Monitor           `yaml:"monitor"`
 	Remedy  map[string]*Remedy `yaml:"remedy"`
 }
@@ -39,16 +41,26 @@ func (this Bullet) VerifyRemedy() {
 }
 
 func (this Bullet) StartScan(wg *sync.WaitGroup) {
+	fmt.Printf("Starting bullet %s", this.Name)
 	defer wg.Done() // This shouldn't be needed
 
 	for {
+		if this.isOOR() {
+			time.Sleep(time.Minute)
+			continue
+		}
+
 		remedy := this.Monitor.RunMonitor()
 
-		// Run remedy if defined 
+		// Run remedy if defined
 		if remedy != "" {
 			this.Remedy[remedy].RunRemedy()
 		}
 	}
+}
+
+func (this Bullet) isOOR() bool {
+	return false
 }
 
 // Non object stuff
@@ -67,6 +79,8 @@ func LoadBullet(filename string) *Bullet {
 		fmt.Printf("Trouble parsing: %s\n", err)
 		os.Exit(YAML_PARSE_ERROR)
 	}
+
+	bullet.Name = filename
 
 	return bullet
 }
