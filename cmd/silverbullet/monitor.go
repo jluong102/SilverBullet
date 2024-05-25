@@ -20,7 +20,7 @@ func (this Monitor) VerifyMonitor() {
 	this.verifyBad()
 }
 
-func (this Monitor) RunMonitor() string {
+func (this Monitor) RunMonitor(attempt *uint) string {
 	exitcode := RunScript(this.Script)
 
 	if !this.isGoodCode(exitcode) {
@@ -28,7 +28,9 @@ func (this Monitor) RunMonitor() string {
 	}
 
 	time.Sleep(time.Second * time.Duration(this.Interval))
-	return this.RunMonitor()
+	*attempt = 0
+
+	return this.RunMonitor(attempt)
 }
 
 func (this Monitor) verifyScript() {

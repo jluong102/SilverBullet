@@ -41,9 +41,19 @@ func (this Bullet) VerifyRemedy() {
 	}
 }
 
+/*
+ * This is the main function of each bullet.
+ * This will start by checking to see if the bullet
+ * is marked OOR. If the bullet is not marked OOR,
+ * run the monitoring script/bin until it fails.
+ * The remedy name is returned and then run.
+ * If this fails more then the set "try" amount marked
+ * mark the bullet OOR.
+ */
 func (this Bullet) StartScan(settings *Settings, wg *sync.WaitGroup) {
 	fmt.Printf("Starting bullet %s\n", this.Name)
 	defer wg.Done() // This shouldn't be needed
+	var attempt uint = 0
 
 	for {
 		if this.isOOR(settings.OOR) {
@@ -53,11 +63,19 @@ func (this Bullet) StartScan(settings *Settings, wg *sync.WaitGroup) {
 			continue
 		}
 
-		remedy := this.Monitor.RunMonitor()
+		remedy := this.Monitor.RunMonitor(&attempt)
 
 		// Run remedy if defined
 		if remedy != "" {
 			this.Remedy[remedy].RunRemedy()
+		} else {
+			fmt.Printf("Unknown exitcode\n")
+		}
+
+		attempt++
+
+		if attempt >= this.Remedy[remedy].Try {
+			this.markOOR(settings.OOR)
 		}
 	}
 }
@@ -77,6 +95,27 @@ func (this Bullet) isOOR(dirPath string) bool {
 	}
 
 	return false
+}
+
+// Create a file an the OOR directory of the bullet name
+func (this Bullet) markOOR(dirOOR string) {
+	fmt.Printf("Marking %s OOR\n", this.Name)
+	oorFile := fmt.Sprintf("%s/%s", dirOOR, this.Name)
+
+	// File should not be created at this point
+	if _, err := os.Stat(oorFile); err != nil {
+		fmt.Printf("OOR file already found\n")
+		return
+	}
+
+	oor, err := os.Create(oorFile)
+
+	if err != nil {
+		fmt.Printf("Unable to mark %s OOR: %s\n", this.Name, err)
+	}
+
+	oor.WriteString("Failed to remedy")
+	oor.Close()
 }
 
 // Non object stuff
