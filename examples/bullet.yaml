@@ -10,5 +10,5 @@ monitor:
 remedy: 
   example_fix:
     script: examples/resolve.sh
-    interval: 3
-    try: 240    
+    interval: 240
+    try: 3
