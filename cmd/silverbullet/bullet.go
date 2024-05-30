@@ -74,7 +74,7 @@ func (this Bullet) StartScan(settings *Settings, wg *sync.WaitGroup) {
 
 		attempt++
 
-		if attempt >= this.Remedy[remedy].Try {
+		if attempt >= this.Remedy[remedy].Try && this.Remedy[remedy].Try != 0 {
 			this.markOOR(settings.OOR)
 		}
 	}
