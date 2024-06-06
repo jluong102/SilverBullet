@@ -21,16 +21,17 @@ func (this Monitor) VerifyMonitor() {
 }
 
 func (this Monitor) RunMonitor(attempt *uint) string {
-	exitcode := RunScript(this.Script)
+	for {
+		exitcode := RunScript(this.Script)
 
-	if !this.isGoodCode(exitcode) {
-		return this.findRemedy(exitcode)
+		if !this.isGoodCode(exitcode) {
+			return this.findRemedy(exitcode)
+		}
+
+		time.Sleep(time.Second * time.Duration(this.Interval))
+		*attempt = 0
 	}
 
-	time.Sleep(time.Second * time.Duration(this.Interval))
-	*attempt = 0
-
-	return this.RunMonitor(attempt)
 }
 
 func (this Monitor) verifyScript() {
